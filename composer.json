@@ -1,0 +1,18 @@
+{
+    "name": "jamesstandbridge/php-sms-partner",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jamesstandbridge\\PhpSmsPartner\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jamesstandbridge",
+            "email": "james.standbridge.git@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
