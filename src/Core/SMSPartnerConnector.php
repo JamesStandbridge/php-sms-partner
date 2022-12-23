@@ -89,6 +89,36 @@ class SMSPartnerConnector
         return false;
     }
 
+    public function updateContact(string $contactId, array $data): bool
+    {
+        $contact = [];
+
+        $acceptedKeys = ["phoneNumber", "firstname", "lastname", "date", "shortUrlPartnr", "url", "custom1", "custom2", "custom3", "custom4"];
+
+        foreach($data as $key => $info) {
+            if(in_array($key, $acceptedKeys))
+                $contact[$key] = $info;
+            else
+                throw new \InvalidArgumentException(sprintf("%s n'est pas un paramètre valide", $key));
+        }
+
+        try {
+            $payload = [
+                "apiKey" => $this->api_key,
+                "contactId" => $contactId,
+                "contact" => $contact
+            ];
+            $res = $this->post(SMSPartnerConstants::UPDATE_CONTACT(), $payload);
+
+            $res = self::decode($res);
+
+            return $res["code"] === 200;
+        } catch(ClientException $e) {
+            throw new SMSPartnerApiException($e->getResponse()->getBody()->getContents());
+        }
+        return false;
+    }
+
     public function addStop(string $phoneNumber): int
     {
         try {

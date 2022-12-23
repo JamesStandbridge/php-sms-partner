@@ -28,6 +28,11 @@ class SMSPartnerConstants
         return sprintf("%s/contact/add", self::DOMAIN);
     }
 
+    public static function UPDATE_CONTACT(): string
+    {
+        return sprintf("%s/contact/update", self::DOMAIN);
+    }
+
     public static function DELETE_CONTACT(): string
     {
         return sprintf("%s/contact/delete", self::DOMAIN);
