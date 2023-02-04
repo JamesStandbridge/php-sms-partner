@@ -38,6 +38,11 @@ class SMSPartnerConstants
         return sprintf("%s/contact/delete", self::DOMAIN);
     }
 
+    public static function GET_CONTACT(string $apiKey, string $contactId): string
+    {
+        return sprintf("%s/contact/detail?apiKey=%s&contactId=%s", self::DOMAIN, $apiKey, $contactId);
+    }
+
     public static function POST_STOP(): string
     {
         return sprintf("%s/stop-sms/add", self::DOMAIN);

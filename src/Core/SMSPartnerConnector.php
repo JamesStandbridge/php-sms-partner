@@ -93,6 +93,7 @@ class SMSPartnerConnector
     {
         $contact = [];
 
+        
         $acceptedKeys = ["phoneNumber", "firstname", "lastname", "date", "shortUrlPartnr", "url", "custom1", "custom2", "custom3", "custom4"];
 
         foreach($data as $key => $info) {
@@ -113,6 +114,22 @@ class SMSPartnerConnector
             $res = self::decode($res);
 
             return $res["code"] === 200;
+        } catch(ClientException $e) {
+            sleep(5);
+            throw new SMSPartnerApiException($e->getResponse()->getBody()->getContents());
+        }
+        return false;
+    }
+
+    public function getContact(string $contactId)
+    {
+        try {
+            $res = $this->get(SMSPartnerConstants::GET_CONTACT($this->api_key, $contactId));
+
+            $res = self::decode($res);
+            
+            if($res["code"] === 200)
+                return $res["contact"];
         } catch(ClientException $e) {
             throw new SMSPartnerApiException($e->getResponse()->getBody()->getContents());
         }
