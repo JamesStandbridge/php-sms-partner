@@ -42,6 +42,29 @@ class SMSPartnerConnector
         return $total;
     }
 
+    public function addContacts(string $groupId, array $contacts): array 
+    { 
+        try {
+            $payload = [
+                "apiKey" => $this->api_key,
+                "groupId" => $groupId,
+                "contactsList" => $contacts
+            ];
+
+            dump(json_encode($payload));
+
+            $res = $this->post(SMSPartnerConstants::POST_CONTACTS(), $payload); 
+            dump($res);      
+            $customer = self::decode($res);
+
+            return $customer;
+        } catch(ClientException $e) {
+            throw new SMSPartnerApiException($e->getResponse()->getBody()->getContents());
+        }
+        return null;
+
+    }
+
     public function addContact(string $groupId, string $phonenumber, array $data): array
     {   
         try {
