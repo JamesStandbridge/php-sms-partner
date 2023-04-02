@@ -51,10 +51,7 @@ class SMSPartnerConnector
                 "contactsList" => $contacts
             ];
 
-            dump(json_encode($payload));
-
             $res = $this->post(SMSPartnerConstants::POST_CONTACTS(), $payload); 
-            dump($res);      
             $customer = self::decode($res);
 
             return $customer;
